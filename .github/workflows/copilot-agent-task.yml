@@ -19,30 +19,22 @@ permissions:
   pull-requests: write
 
 jobs:
-  notify-slack:
-    name: Alert Slack after approval
+  slack-notification:
     runs-on: ubuntu-latest
     steps:
-      - name: Send approval message to Slack
-        if: ${{ secrets.SLACK_WEBHOOK_URL != '' }}
+      - name: Send Slack Alert
         uses: slackapi/slack-github-action@v1.26.0
         with:
-          payload: |
-            {
-              "text": "Jira ticket approved: ${{ github.event.client_payload.ticket_id || inputs.ticket_id }}",
-              "attachments": [
-                {
-                  "color": "#36a64f",
-                  "text": "Task: ${{ github.event.client_payload.ticket_description || inputs.ticket_description }}\nRepository: ${{ github.repository }}\nAction: start Copilot patch workflow"
-                }
-              ]
-            }
+          channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
+          slack-message: |
+            🤖 Jira Ticket Dispatched: ${{ inputs.ticket_id }}
+            Task: ${{ inputs.ticket_description }}
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
   run-copilot-agent:
     name: Execute approved repository change
-    needs: notify-slack
+    needs: slack-notification
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
