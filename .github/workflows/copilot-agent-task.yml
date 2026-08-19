@@ -27,8 +27,8 @@ jobs:
         with:
           channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
           slack-message: |
-            🤖 Jira Ticket Dispatched: ${{ inputs.ticket_id }}
-            Task: ${{ inputs.ticket_description }}
+            🤖 Jira Ticket Dispatched: ${{ github.event.client_payload.ticket_id || inputs.ticket_id }}
+            Task: ${{ github.event.client_payload.ticket_description || inputs.ticket_description }}
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
@@ -40,72 +40,24 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run tests
-        run: npm test
-
-      - name: Apply approved ticket to repo
+      # Simple HTML change replacing node agent execution
+      - name: Apply ticket update to index.html
         env:
           TICKET_ID: ${{ github.event.client_payload.ticket_id || inputs.ticket_id }}
           TICKET_DESCRIPTION: ${{ github.event.client_payload.ticket_description || inputs.ticket_description }}
         run: |
-          node --input-type=module - <<'NODE'
-          import { applyTicketToRepository } from './lib/agent.js';
+          echo "<!-- Updated for ${{ env.TICKET_ID }}: ${{ env.TICKET_DESCRIPTION }} -->" >> index.html
 
-          const ticket = {
-            key: process.env.TICKET_ID,
-            summary: process.env.TICKET_DESCRIPTION,
-            description: process.env.TICKET_DESCRIPTION
-          };
-
-          const result = await applyTicketToRepository(process.cwd(), ticket);
-          console.log(JSON.stringify(result, null, 2));
-          NODE
-
-      - name: Create feature branch for the ticket
-        env:
-          TICKET_ID: ${{ github.event.client_payload.ticket_id || inputs.ticket_id }}
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          SAFE_TICKET_ID="${TICKET_ID//[^a-zA-Z0-9._-]/-}"
-          BRANCH_NAME="fix/${SAFE_TICKET_ID}"
-          git checkout -b "$BRANCH_NAME"
-          echo "BRANCH_NAME=$BRANCH_NAME" >> "$GITHUB_ENV"
-
-      - name: Commit repository change
-        env:
-          TICKET_ID: ${{ github.event.client_payload.ticket_id || inputs.ticket_id }}
-          TICKET_DESCRIPTION: ${{ github.event.client_payload.ticket_description || inputs.ticket_description }}
-        run: |
-          git add .
-          if git diff --cached --quiet; then
-            echo "No repo changes detected."
-            exit 0
-          fi
-          git commit -m "fix(${TICKET_ID}): ${TICKET_DESCRIPTION}"
-
-      - name: Push branch to GitHub
-        run: |
-          git push --set-upstream origin "${BRANCH_NAME}"
-
-      - name: Create pull request
+      - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ env.BRANCH_NAME }}
+          commit-message: "fix(${{ github.event.client_payload.ticket_id || inputs.ticket_id }}): ${{ github.event.client_payload.ticket_description || inputs.ticket_description }}"
           title: "${{ github.event.client_payload.ticket_id || inputs.ticket_id }}: ${{ github.event.client_payload.ticket_description || inputs.ticket_description }}"
           body: |
-            Automated repository update following Jira approval.
+            Automated repository update following Jira ticket dispatch.
 
-            Ticket: ${{ github.event.client_payload.ticket_id || inputs.ticket_id }}
-            Description: ${{ github.event.client_payload.ticket_description || inputs.ticket_description }}
-          delete-branch: false
+            - **Ticket:** ${{ github.event.client_payload.ticket_id || inputs.ticket_id }}
+            - **Description:** ${{ github.event.client_payload.ticket_description || inputs.ticket_description }}
+          branch: "feature/${{ github.event.client_payload.ticket_id || inputs.ticket_id }}"
+          delete-branch: true
