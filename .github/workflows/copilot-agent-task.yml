@@ -1,4 +1,4 @@
-name: Jira Approved Copilot Agent
+name: Jira Approved Gemini AI Agent
 
 on:
   repository_dispatch:
@@ -12,7 +12,7 @@ on:
       ticket_description:
         description: Ticket summary or task description
         required: true
-        default: Update homepage hero to highlight enterprise CRM
+        default: Update hero section to feature an enterprise CRM header
 
 permissions:
   contents: write
@@ -27,36 +27,44 @@ jobs:
         with:
           channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
           slack-message: |
-            🤖 Jira Ticket Dispatched: ${{ github.event.client_payload.ticket_id || inputs.ticket_id }}
+            🤖 Jira Ticket Dispatched to Gemini Agent: ${{ github.event.client_payload.ticket_id || inputs.ticket_id }}
             Task: ${{ github.event.client_payload.ticket_description || inputs.ticket_description }}
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
-  run-copilot-agent:
-    name: Execute approved repository change
+  run-gemini-agent:
+    name: Execute Gemini AI Code Agent
     needs: slack-notification
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Apply ticket update to index.html
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Google GenAI SDK
+        run: npm install @google/genai
+
+      - name: Run Gemini AI Agent
         env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TICKET_ID: ${{ github.event.client_payload.ticket_id || inputs.ticket_id }}
           TICKET_DESCRIPTION: ${{ github.event.client_payload.ticket_description || inputs.ticket_description }}
-        run: |
-          echo "<!-- Updated for ${{ env.TICKET_ID }}: ${{ env.TICKET_DESCRIPTION }} -->" >> index.html
+        run: node scripts/agent.js
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "fix(${{ github.event.client_payload.ticket_id || inputs.ticket_id }}): ${{ github.event.client_payload.ticket_description || inputs.ticket_description }}"
+          commit-message: "feat(${{ github.event.client_payload.ticket_id || inputs.ticket_id }}): ${{ github.event.client_payload.ticket_description || inputs.ticket_description }}"
           title: "${{ github.event.client_payload.ticket_id || inputs.ticket_id }}: ${{ github.event.client_payload.ticket_description || inputs.ticket_description }}"
           body: |
-            Automated repository update following Jira ticket dispatch.
+            Automated PR created by **Gemini AI Agent** following Jira ticket dispatch.
 
-            - **Ticket:** ${{ github.event.client_payload.ticket_id || inputs.ticket_id }}
-            - **Description:** ${{ github.event.client_payload.ticket_description || inputs.ticket_description }}
+            - **Ticket ID:** ${{ github.event.client_payload.ticket_id || inputs.ticket_id }}
+            - **Prompt/Task:** ${{ github.event.client_payload.ticket_description || inputs.ticket_description }}
           branch: "feature/${{ github.event.client_payload.ticket_id || inputs.ticket_id }}"
           delete-branch: true
