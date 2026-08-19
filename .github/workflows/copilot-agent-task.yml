@@ -40,7 +40,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Simple HTML change replacing node agent execution
       - name: Apply ticket update to index.html
         env:
           TICKET_ID: ${{ github.event.client_payload.ticket_id || inputs.ticket_id }}
