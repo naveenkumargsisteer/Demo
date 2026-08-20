@@ -3,1311 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Sales Business</title>
-
     <style>
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
-            background: linear-gradient(
-                135deg,
-                #667eea 0%,
-                #764ba2 100%
-            );
-
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-
             display: flex;
             justify-content: center;
             align-items: center;
-
             padding: 20px;
         }
-
-
-        /* =========================================
-           MAIN PAGE
-        ========================================= */
-
+        
         .container {
             background: white;
-
             border-radius: 10px;
-
-            box-shadow:
-                0 10px 40px rgba(0, 0, 0, 0.2);
-
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
             max-width: 600px;
             width: 100%;
-
             padding: 60px 40px;
-
             text-align: center;
         }
-
-
+        
         .header {
             margin-bottom: 30px;
         }
-
-
+        
         h1 {
             color: #333;
-
             font-size: 2.5em;
-
             margin-bottom: 10px;
         }
-
-
+        
         .tagline {
             color: #667eea;
-
             font-size: 1.1em;
-
             font-weight: 500;
         }
-
-
+        
         .divider {
             width: 80px;
-
             height: 4px;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    #667eea,
-                    #764ba2
-                );
-
+            background: linear-gradient(90deg, #667eea, #764ba2);
             margin: 20px auto;
-
             border-radius: 2px;
         }
-
-
+        
         .description {
             margin-top: 30px;
         }
-
-
+        
         .description p {
             color: #555;
-
             line-height: 1.8;
-
             font-size: 1.1em;
-
             margin-bottom: 20px;
-
             text-align: justify;
         }
-
-
-        /* =========================================
-           FEATURES
-        ========================================= */
-
+        
         .features {
             margin-top: 30px;
-
             padding-top: 30px;
-
             border-top: 1px solid #eee;
-
             text-align: left;
         }
-
-
+        
         .features h3 {
             color: #333;
-
             margin-bottom: 15px;
-
             text-align: center;
         }
-
-
+        
         .feature-list {
             list-style: none;
-
             display: grid;
-
             gap: 10px;
         }
-
-
+        
         .feature-list li {
             color: #666;
-
             padding-left: 30px;
-
             position: relative;
         }
-
-
+        
         .feature-list li:before {
             content: "✓";
-
             position: absolute;
-
             left: 0;
-
             color: #667eea;
-
             font-weight: bold;
-
             font-size: 1.2em;
         }
-
-
-        /* =========================================
-           FLOATING JIRA BUTTON
-        ========================================= */
-
-        .jira-floating-btn {
-
-            position: fixed;
-
-            right: 25px;
-
-            bottom: 25px;
-
-            width: 60px;
-
-            height: 60px;
-
-            border: none;
-
-            border-radius: 50%;
-
-            background: #0052cc;
-
-            color: white;
-
-            font-size: 28px;
-
-            cursor: pointer;
-
-            box-shadow:
-                0 6px 20px rgba(0, 0, 0, 0.3);
-
-            z-index: 9999;
-
-            transition: all 0.2s ease;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-        }
-
-
-        .jira-floating-btn:hover {
-
-            transform: scale(1.08);
-
-            background: #0747a6;
-
-            box-shadow:
-                0 8px 25px rgba(0, 0, 0, 0.35);
-        }
-
-
-        /* =========================================
-           JIRA POPUP
-        ========================================= */
-
-        .jira-popup {
-
-            position: fixed;
-
-            right: 25px;
-
-            bottom: 100px;
-
-            width: 400px;
-
-            max-width: calc(100vw - 30px);
-
-            background: white;
-
-            border-radius: 14px;
-
-            box-shadow:
-                0 15px 50px rgba(0, 0, 0, 0.3);
-
-            z-index: 9998;
-
-            display: none;
-
-            overflow: hidden;
-
-            animation: popupOpen 0.2s ease;
-        }
-
-
-        .jira-popup.show {
-
-            display: block;
-        }
-
-
-        @keyframes popupOpen {
-
-            from {
-                opacity: 0;
-
-                transform:
-                    translateY(15px)
-                    scale(0.97);
-            }
-
-            to {
-                opacity: 1;
-
-                transform:
-                    translateY(0)
-                    scale(1);
-            }
-        }
-
-
-        /* =========================================
-           POPUP HEADER
-        ========================================= */
-
-        .jira-popup-header {
-
-            background: #0052cc;
-
-            color: white;
-
-            padding: 16px 18px;
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-        }
-
-
-        .jira-popup-header h3 {
-
-            margin: 0;
-
-            font-size: 17px;
-        }
-
-
-        .jira-close {
-
-            border: none;
-
-            background: transparent;
-
-            color: white;
-
-            font-size: 25px;
-
-            line-height: 1;
-
-            cursor: pointer;
-
-            width: 30px;
-
-            height: 30px;
-        }
-
-
-        .jira-close:hover {
-
-            opacity: 0.8;
-        }
-
-
-        /* =========================================
-           POPUP BODY
-        ========================================= */
-
-        .jira-popup-body {
-
-            padding: 20px;
-        }
-
-
-        .jira-popup-label {
-
-            display: block;
-
-            font-size: 13px;
-
-            font-weight: 600;
-
-            color: #444;
-
-            margin-bottom: 8px;
-        }
-
-
-        /* =========================================
-           INPUT
-        ========================================= */
-
-        .jira-input {
-
-            width: 100%;
-
-            min-height: 90px;
-
-            resize: vertical;
-
-            border: 1px solid #d1d5db;
-
-            border-radius: 8px;
-
-            padding: 12px;
-
-            font-family: inherit;
-
-            font-size: 14px;
-
-            outline: none;
-
-            transition: border 0.2s;
-        }
-
-
-        .jira-input:focus {
-
-            border-color: #0052cc;
-
-            box-shadow:
-                0 0 0 3px rgba(
-                    0,
-                    82,
-                    204,
-                    0.1
-                );
-        }
-
-
-        /* =========================================
-           GENERATE BUTTON
-        ========================================= */
-
-        .jira-generate-btn {
-
-            width: 100%;
-
-            margin-top: 12px;
-
-            padding: 12px;
-
-            border: none;
-
-            border-radius: 8px;
-
-            background: #0052cc;
-
-            color: white;
-
-            font-weight: 600;
-
-            font-size: 14px;
-
-            cursor: pointer;
-
-            transition: background 0.2s;
-        }
-
-
-        .jira-generate-btn:hover {
-
-            background: #0747a6;
-        }
-
-
-        /* =========================================
-           RESULT
-        ========================================= */
-
-        .jira-result {
-
-            display: none;
-
-            margin-top: 20px;
-
-            padding-top: 20px;
-
-            border-top: 1px solid #eee;
-        }
-
-
-        .jira-result.show {
-
-            display: block;
-        }
-
-
-        .jira-field {
-
-            margin-bottom: 15px;
-        }
-
-
-        .jira-field label {
-
-            display: block;
-
-            font-size: 12px;
-
-            font-weight: 700;
-
-            color: #555;
-
-            margin-bottom: 6px;
-
-            text-transform: uppercase;
-
-            letter-spacing: 0.3px;
-        }
-
-
-        .jira-title {
-
-            width: 100%;
-
-            padding: 11px;
-
-            border: 1px solid #d1d5db;
-
-            border-radius: 7px;
-
-            font-family: inherit;
-
-            font-size: 14px;
-
-            outline: none;
-        }
-
-
-        .jira-description {
-
-            width: 100%;
-
-            min-height: 140px;
-
-            resize: vertical;
-
-            padding: 11px;
-
-            border: 1px solid #d1d5db;
-
-            border-radius: 7px;
-
-            font-family: inherit;
-
-            font-size: 14px;
-
-            line-height: 1.5;
-
-            outline: none;
-        }
-
-
-        .jira-title:focus,
-        .jira-description:focus {
-
-            border-color: #0052cc;
-        }
-
-
-        /* =========================================
-           CREATE JIRA BUTTON
-        ========================================= */
-
-        .jira-create-btn {
-
-            width: 100%;
-
-            margin-top: 5px;
-
-            padding: 12px;
-
-            border: none;
-
-            border-radius: 8px;
-
-            background: #172b4d;
-
-            color: white;
-
-            font-weight: 600;
-
-            font-size: 14px;
-
-            cursor: pointer;
-
-            transition: background 0.2s;
-        }
-
-
-        .jira-create-btn:hover {
-
-            background: #091e42;
-        }
-
-
-        /* =========================================
-           SUCCESS MESSAGE
-        ========================================= */
-
-        .jira-success {
-
-            display: none;
-
-            margin-top: 12px;
-
-            padding: 10px;
-
-            border-radius: 7px;
-
-            background: #ecfdf5;
-
-            border: 1px solid #a7f3d0;
-
-            color: #047857;
-
-            font-size: 13px;
-
-            line-height: 1.4;
-        }
-
-
-        .jira-success.show {
-
-            display: block;
-        }
-
-
-        /* =========================================
-           MOBILE
-        ========================================= */
-
+        
         @media (max-width: 600px) {
-
             .container {
-
                 padding: 40px 25px;
             }
-
-
+            
             h1 {
-
                 font-size: 2em;
             }
-
-
+            
             .description p {
-
                 font-size: 1em;
             }
-
-
-            .jira-floating-btn {
-
-                width: 55px;
-
-                height: 55px;
-
-                right: 15px;
-
-                bottom: 15px;
-            }
-
-
-            .jira-popup {
-
-                right: 15px;
-
-                bottom: 85px;
-
-                width: calc(100vw - 30px);
-            }
-
         }
-
     </style>
 </head>
-
-
 <body>
-
-
-    <!-- =========================================
-         MAIN PAGE
-    ========================================= -->
-
+    <!-- AS Naven -->
     <div class="container">
-
-
         <div class="header">
-
-            <h1>
-                Elite Sales Solutions
-            </h1>
-
-
-            <p class="tagline">
-                Elevate Your Business Growth
-            </p>
-
-
+            <h1>Premium Sales Solutions</h1>
+            <p class="tagline">Elevate Your Business Growth</p>
             <div class="divider"></div>
-
         </div>
-
-
+        
         <div class="description">
-
-
             <p>
-                Welcome to our cutting-edge sales business platform,
-                designed to transform the way you engage with customers
-                and drive revenue growth. We specialize in providing
-                comprehensive sales solutions that empower businesses
-                of all sizes to achieve their commercial objectives
-                with confidence and efficiency.
+                Welcome to our cutting-edge sales business platform, designed to transform the way you engage with customers and drive revenue growth. We specialize in providing comprehensive sales solutions that empower businesses of all sizes to achieve their commercial objectives with confidence and efficiency.
             </p>
-
-
             <p>
-                Our innovative approach combines proven sales strategies,
-                advanced analytics, and personalized customer engagement
-                to maximize conversion rates and build lasting business
-                relationships. Whether you're looking to expand your
-                market reach, enhance your sales team's performance,
-                or optimize your sales pipeline, we deliver tailored
-                solutions that align with your unique business needs
-                and goals.
+                Our innovative approach combines proven sales strategies, advanced analytics, and personalized customer engagement to maximize conversion rates and build lasting business relationships. Whether you're looking to expand your market reach, enhance your sales team's performance, or optimize your sales pipeline, we deliver tailored solutions that align with your unique business needs and goals.
             </p>
-
-
+            
             <div class="features">
-
-
-                <h3>
-                    Our Solutions
-                </h3>
-
-
+                <h3>Our Solutions</h3>
                 <ul class="feature-list">
-
-                    <li>
-                        Strategic Sales Consulting & Planning
-                    </li>
-
-                    <li>
-                        Sales Team Training & Development
-                    </li>
-
-                    <li>
-                        Revenue Optimization Strategies
-                    </li>
-
-                    <li>
-                        Data-Driven Sales Analytics
-                    </li>
-
-                    <li>
-                        Lead Generation & Nurturing
-                    </li>
-
-                    <li>
-                        Post-Sales Support & Customer Success
-                    </li>
-
+                    <li>Strategic Sales Consulting & Planning</li>
+                    
+                    <li>Sales Team Training & Development</li>
+                    <li>Revenue Optimization Strategies</li>
+                    <li>Data-Driven Sales Analytics</li>
+                    <li>Lead Generation & Nurturing</li>
+                    <li>Post-Sales Support & Customer Success</li>
                 </ul>
-
-
             </div>
-
-
         </div>
-
-
     </div>
-
-
-
-    <!-- =========================================
-         FLOATING JIRA BUTTON
-    ========================================= -->
-
-    <!-- <button
-        class="jira-floating-btn"
-        id="jiraFloatingButton"
-        onclick="toggleJiraPopup()"
-        title="Create Jira Ticket">
-
-        🎫
-
-    </button> -->
-
-
-
-    <!-- =========================================
-         JIRA POPUP
-    ========================================= -->
-
-    <div
-        id="jiraPopup"
-        class="jira-popup">
-
-
-        <!-- POPUP HEADER -->
-
-        <div class="jira-popup-header">
-
-
-            <h3>
-                🎫 Create Jira Ticket
-            </h3>
-
-
-            <button
-                class="jira-close"
-                onclick="closeJiraPopup()">
-
-                ×
-
-            </button>
-
-
-        </div>
-
-
-
-        <!-- POPUP BODY -->
-
-        <div class="jira-popup-body">
-
-
-            <!-- USER INPUT -->
-
-            <div class="jira-field">
-
-
-                <label class="jira-popup-label">
-
-                    Describe the issue
-
-                </label>
-
-
-                <textarea
-                    id="jiraInput"
-                    class="jira-input"
-                    placeholder="Example: fix this save contact issue"></textarea>
-
-
-            </div>
-
-
-
-            <!-- GENERATE -->
-
-            <button
-                class="jira-generate-btn"
-                onclick="generateJiraTicket()">
-
-                ✨ Get Suggestions to Generate Ticket
-
-            </button>
-
-
-
-            <!-- GENERATED RESULT -->
-
-            <div
-                id="jiraResult"
-                class="jira-result">
-
-
-                <!-- TITLE -->
-
-                <div class="jira-field">
-
-
-                    <label>
-                        Title
-                    </label>
-
-
-                    <input
-                        id="jiraTitle"
-                        class="jira-title"
-                        type="text"
-                        placeholder="Ticket title">
-
-                </div>
-
-
-
-                <!-- DESCRIPTION -->
-
-                <div class="jira-field">
-
-
-                    <label>
-                        Description
-                    </label>
-
-
-                    <textarea
-                        id="jiraDescription"
-                        class="jira-description"
-                        placeholder="Ticket description"></textarea>
-
-
-                </div>
-
-
-
-                <!-- CREATE -->
-
-                <button
-                    class="jira-create-btn"
-                    onclick="createJiraTicket()">
-
-                    Create Jira Ticket
-
-                </button>
-
-
-
-                <!-- SUCCESS -->
-
-                <div
-                    id="jiraSuccess"
-                    class="jira-success">
-
-                    ✓ Ticket information is ready.
-                    Connect this button to your Jira backend
-                    to create the actual Jira issue.
-
-                </div>
-
-
-            </div>
-
-
-        </div>
-
-
-    </div>
-
-
-
-    <!-- =========================================
-         JAVASCRIPT
-    ========================================= -->
-
-    <script>
-
-
-        /* =========================================
-           OPEN / CLOSE POPUP
-        ========================================= */
-
-        function toggleJiraPopup() {
-
-            const popup =
-                document.getElementById("jiraPopup");
-
-
-            popup.classList.toggle("show");
-
-
-            if (popup.classList.contains("show")) {
-
-                setTimeout(() => {
-
-                    document
-                        .getElementById("jiraInput")
-                        .focus();
-
-                }, 100);
-
-            }
-
-        }
-
-
-        function closeJiraPopup() {
-
-            document
-                .getElementById("jiraPopup")
-                .classList
-                .remove("show");
-
-        }
-
-
-
-        /* =========================================
-           GENERATE JIRA TICKET
-        ========================================= */
-
-        function generateJiraTicket() {
-
-
-            const input =
-                document
-                    .getElementById("jiraInput")
-                    .value
-                    .trim();
-
-
-            if (!input) {
-
-                alert(
-                    "Please describe the issue first."
-                );
-
-                return;
-
-            }
-
-
-            const text =
-                input.toLowerCase();
-
-
-            let title;
-
-            let description;
-
-
-
-            /* =====================================
-               SAVE CONTACT EXAMPLE
-            ===================================== */
-
-            if (
-                text.includes("save") &&
-                text.includes("contact")
-            ) {
-
-
-                title =
-                    "Fix Save Contact Issue";
-
-
-                description =
-                    "Users are experiencing an issue with the Save Contact functionality. " +
-                    "The application should be investigated to determine why contact " +
-                    "information is not being saved correctly. The issue should be fixed " +
-                    "so that users can successfully save contact information and the " +
-                    "saved data is persisted correctly.";
-
-
-            }
-
-
-
-            /* =====================================
-               LOGIN EXAMPLE
-            ===================================== */
-
-            else if (
-                text.includes("login") ||
-                text.includes("log in")
-            ) {
-
-
-                title =
-                    "Fix Login Issue";
-
-
-                description =
-                    "Users are experiencing an issue with the login functionality. " +
-                    "The login flow should be investigated to identify the root cause " +
-                    "and corrected so that users can successfully authenticate and " +
-                    "access the application.";
-
-
-            }
-
-
-
-            /* =====================================
-               PAYMENT EXAMPLE
-            ===================================== */
-
-            else if (
-                text.includes("payment") ||
-                text.includes("pay")
-            ) {
-
-
-                title =
-                    "Fix Payment Issue";
-
-
-                description =
-                    "Users are experiencing an issue with the payment functionality. " +
-                    "The payment flow should be investigated to identify the root cause " +
-                    "and corrected so that payments can be processed successfully and " +
-                    "the appropriate status is displayed to the user.";
-
-
-            }
-
-
-
-            /* =====================================
-               GENERIC ISSUE
-            ===================================== */
-
-            else {
-
-
-                title =
-                    cleanTitle(input);
-
-
-                description =
-                    "The user reported the following issue: \"" +
-                    input +
-                    "\". " +
-                    "The reported functionality should be investigated to identify " +
-                    "the root cause and implement the appropriate fix. The solution " +
-                    "should be verified to ensure the reported issue is resolved " +
-                    "and the expected functionality works correctly.";
-
-            }
-
-
-
-            /* =====================================
-               DISPLAY GENERATED TICKET
-            ===================================== */
-
-            document
-                .getElementById("jiraTitle")
-                .value = title;
-
-
-            document
-                .getElementById("jiraDescription")
-                .value = description;
-
-
-            document
-                .getElementById("jiraResult")
-                .classList
-                .add("show");
-
-
-            document
-                .getElementById("jiraSuccess")
-                .classList
-                .remove("show");
-
-        }
-
-
-
-        /* =========================================
-           CLEAN TITLE
-        ========================================= */
-
-        function cleanTitle(input) {
-
-
-            let title =
-                input
-                    .replace(
-                        /^fix this\s*/i,
-                        "Fix "
-                    )
-                    .replace(
-                        /^fix\s*/i,
-                        "Fix "
-                    )
-                    .replace(
-                        /^please\s*/i,
-                        ""
-                    )
-                    .replace(
-                        /\s+/g,
-                        " "
-                    )
-                    .trim();
-
-
-            title =
-                title.charAt(0).toUpperCase() +
-                title.slice(1);
-
-
-            return title;
-
-        }
-
-
-
-        /* =========================================
-           CREATE JIRA TICKET
-        ========================================= */
-
-        function createJiraTicket() {
-
-
-            const title =
-                document
-                    .getElementById("jiraTitle")
-                    .value
-                    .trim();
-
-
-            const description =
-                document
-                    .getElementById("jiraDescription")
-                    .value
-                    .trim();
-
-
-
-            if (!title || !description) {
-
-                alert(
-                    "Title and description are required."
-                );
-
-                return;
-
-            }
-
-
-
-            /*
-             * This is the ticket data that will eventually
-             * be sent to your backend.
-             */
-
-            const ticket = {
-
-                title: title,
-
-                description: description
-
-            };
-
-
-            console.log(
-                "Jira Ticket:",
-                ticket
-            );
-
-
-
-            /*
-             * For now we only show confirmation.
-             *
-             * Later you can replace this section with:
-             *
-             * fetch("/api/jira/create-ticket", {
-             *
-             *     method: "POST",
-             *
-             *     headers: {
-             *         "Content-Type": "application/json"
-             *     },
-             *
-             *     body: JSON.stringify(ticket)
-             *
-             * });
-             */
-
-
-            document
-                .getElementById("jiraSuccess")
-                .classList
-                .add("show");
-
-
-        }
-
-
-
-        /* =========================================
-           CLOSE POPUP WHEN CLICKING OUTSIDE
-        ========================================= */
-
-        document.addEventListener(
-            "click",
-            function(event) {
-
-
-                const popup =
-                    document.getElementById("jiraPopup");
-
-
-                const button =
-                    document.getElementById(
-                        "jiraFloatingButton"
-                    );
-
-
-                if (
-                    popup.classList.contains("show") &&
-                    !popup.contains(event.target) &&
-                    !button.contains(event.target)
-                ) {
-
-                    closeJiraPopup();
-
-                }
-
-            }
-        );
-
-
-
-        /* =========================================
-           ESC KEY CLOSE
-        ========================================= */
-
-        document.addEventListener(
-            "keydown",
-            function(event) {
-
-                if (event.key === "Escape") {
-
-                    closeJiraPopup();
-
-                }
-
-            }
-        );
-
-
-    </script>
-
-
+    <!-- DO It -->
 </body>
 </html>
