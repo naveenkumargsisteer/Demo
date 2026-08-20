@@ -3,150 +3,1521 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sales Business</title>
+    <title>Premium Sales Solutions</title>
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: #222;
+            background: #f7f8fc;
+            line-height: 1.6;
         }
-        
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
         .container {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            max-width: 600px;
-            width: 100%;
-            padding: 60px 40px;
-            text-align: center;
+            width: min(1180px, 92%);
+            margin: auto;
         }
-        
-        .header {
-            margin-bottom: 30px;
+
+        /* ================= HEADER ================= */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
         }
-        
-        h1 {
-            color: #333;
-            font-size: 2.5em;
-            margin-bottom: 10px;
+
+        .navbar {
+            min-height: 75px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
         }
-        
-        .tagline {
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
             color: #667eea;
-            font-size: 1.1em;
-            font-weight: 500;
         }
-        
-        .divider {
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            margin: 20px auto;
-            border-radius: 2px;
+
+        .logo span {
+            color: #764ba2;
         }
-        
-        .description {
-            margin-top: 30px;
+
+        nav {
+            display: flex;
+            gap: 28px;
+            align-items: center;
         }
-        
-        .description p {
-            color: #555;
-            line-height: 1.8;
-            font-size: 1.1em;
-            margin-bottom: 20px;
-            text-align: justify;
+
+        nav a {
+            font-weight: 600;
+            color: #444;
+            transition: 0.3s;
         }
-        
-        .features {
-            margin-top: 30px;
-            padding-top: 30px;
-            border-top: 1px solid #eee;
-            text-align: left;
+
+        nav a:hover {
+            color: #667eea;
         }
-        
-        .features h3 {
-            color: #333;
-            margin-bottom: 15px;
-            text-align: center;
+
+        .nav-btn {
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: white !important;
+            background: linear-gradient(135deg, #667eea, #764ba2);
         }
-        
-        .feature-list {
-            list-style: none;
-            display: grid;
-            gap: 10px;
+
+        /* ================= HERO ================= */
+
+        .hero {
+            min-height: 720px;
+            display: flex;
+            align-items: center;
+            color: white;
+            background:
+                linear-gradient(rgba(35, 40, 100, 0.88), rgba(89, 47, 130, 0.9)),
+                radial-gradient(circle at top right, #8b9aff, #5d3a88);
         }
-        
-        .feature-list li {
-            color: #666;
-            padding-left: 30px;
+
+        .hero-content {
+            max-width: 760px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 18px;
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 30px;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.7rem, 6vw, 5rem);
+            line-height: 1.08;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 span {
+            color: #d9dcff;
+        }
+
+        .hero p {
+            max-width: 680px;
+            font-size: 1.2rem;
+            opacity: 0.92;
+            margin-bottom: 35px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 27px;
+            border-radius: 30px;
+            font-weight: 700;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            color: #5d3a88;
+            background: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .btn-outline {
+            color: white;
+            border: 1px solid rgba(255,255,255,0.6);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: #5d3a88;
+        }
+
+        /* ================= STATS ================= */
+
+        .stats {
+            margin-top: -70px;
             position: relative;
+            z-index: 5;
         }
-        
-        .feature-list li:before {
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.12);
+            overflow: hidden;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 35px 20px;
+            border-right: 1px solid #eee;
+        }
+
+        .stat:last-child {
+            border-right: none;
+        }
+
+        .stat h2 {
+            color: #667eea;
+            font-size: 2rem;
+        }
+
+        .stat p {
+            color: #777;
+            margin-top: 5px;
+        }
+
+        /* ================= SECTIONS ================= */
+
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 55px;
+        }
+
+        .section-title .small-title {
+            color: #667eea;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin: 10px 0 15px;
+            color: #222;
+        }
+
+        .section-title p {
+            color: #777;
+        }
+
+        /* ================= ABOUT ================= */
+
+        .about {
+            background: white;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .about-content p {
+            color: #666;
+            margin-bottom: 18px;
+        }
+
+        .about-list {
+            margin-top: 25px;
+            list-style: none;
+        }
+
+        .about-list li {
+            margin-bottom: 13px;
+            color: #444;
+        }
+
+        .about-list li::before {
             content: "✓";
-            position: absolute;
-            left: 0;
             color: #667eea;
             font-weight: bold;
-            font-size: 1.2em;
+            margin-right: 12px;
         }
-        
+
+        .about-card {
+            padding: 45px;
+            border-radius: 25px;
+            color: white;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            box-shadow: 0 20px 40px rgba(102,126,234,0.25);
+        }
+
+        .about-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .about-card p {
+            opacity: 0.9;
+        }
+
+        /* ================= SERVICES ================= */
+
+        .services {
+            background: #f7f8fc;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .service-card {
+            background: white;
+            padding: 35px 28px;
+            border-radius: 18px;
+            border: 1px solid #eee;
+            transition: 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            display: grid;
+            place-items: center;
+            border-radius: 15px;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .service-card h3 {
+            margin-bottom: 12px;
+            font-size: 1.25rem;
+        }
+
+        .service-card p {
+            color: #777;
+        }
+
+        /* ================= PROCESS ================= */
+
+        .process {
+            background: white;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .process-card {
+            position: relative;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .process-number {
+            width: 65px;
+            height: 65px;
+            margin: auto auto 20px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .process-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .process-card p {
+            color: #777;
+        }
+
+        /* ================= SOLUTIONS ================= */
+
+        .solutions {
+            background: #f7f8fc;
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .solution-box {
+            padding: 35px;
+            background: white;
+            border-radius: 18px;
+            border-left: 5px solid #667eea;
+        }
+
+        .solution-box h3 {
+            margin-bottom: 10px;
+        }
+
+        .solution-box p {
+            color: #777;
+        }
+
+        /* ================= TESTIMONIALS ================= */
+
+        .testimonials {
+            background: white;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .testimonial {
+            padding: 30px;
+            background: #f8f9ff;
+            border-radius: 18px;
+        }
+
+        .stars {
+            color: #f5b301;
+            margin-bottom: 15px;
+            letter-spacing: 3px;
+        }
+
+        .testimonial p {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .client {
+            font-weight: 700;
+            color: #333;
+        }
+
+        .client span {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: normal;
+            color: #888;
+        }
+
+        /* ================= PRICING ================= */
+
+        .pricing {
+            background: #f7f8fc;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            align-items: stretch;
+        }
+
+        .price-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            border: 1px solid #eee;
+            text-align: center;
+        }
+
+        .price-card.featured {
+            color: white;
+            transform: scale(1.04);
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+        }
+
+        .price-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .price-card ul {
+            list-style: none;
+            text-align: left;
+            margin: 25px 0;
+        }
+
+        .price-card li {
+            margin: 12px 0;
+        }
+
+        .price-card li::before {
+            content: "✓";
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .price-card .btn {
+            width: 100%;
+        }
+
+        .price-card:not(.featured) .btn {
+            color: white;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        /* ================= CTA ================= */
+
+        .cta {
+            color: white;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .cta h2 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+        }
+
+        .cta p {
+            max-width: 650px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        /* ================= CONTACT ================= */
+
+        .contact {
+            background: white;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 50px;
+        }
+
+        .contact-info h2 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        .contact-info > p {
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .contact-icon {
+            width: 45px;
+            height: 45px;
+            flex-shrink: 0;
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            color: white;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .contact-item strong {
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .contact-item span {
+            color: #777;
+        }
+
+        form {
+            background: #f8f9ff;
+            padding: 35px;
+            border-radius: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font: inherit;
+            outline: none;
+            background: white;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #667eea;
+        }
+
+        textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        form .btn {
+            width: 100%;
+            color: white;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        /* ================= FAQ ================= */
+
+        .faq {
+            background: #f7f8fc;
+        }
+
+        .faq-container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        details {
+            background: white;
+            margin-bottom: 12px;
+            border-radius: 10px;
+            padding: 20px 25px;
+            border: 1px solid #eee;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: 700;
+            color: #333;
+        }
+
+        details p {
+            color: #777;
+            padding-top: 15px;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            color: white;
+            background: #17172b;
+            padding: 60px 0 25px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 45px;
+        }
+
+        .footer-brand h2 {
+            margin-bottom: 15px;
+        }
+
+        .footer-brand p {
+            color: #aaa;
+            max-width: 330px;
+        }
+
+        footer h3 {
+            margin-bottom: 15px;
+        }
+
+        footer ul {
+            list-style: none;
+        }
+
+        footer li {
+            margin: 9px 0;
+            color: #aaa;
+        }
+
+        footer li a:hover {
+            color: white;
+        }
+
+        .copyright {
+            padding-top: 25px;
+            border-top: 1px solid #333;
+            text-align: center;
+            color: #888;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 900px) {
+            nav {
+                display: none;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat:nth-child(2) {
+                border-right: none;
+            }
+
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid,
+            .testimonial-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .process-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
         @media (max-width: 600px) {
-            .container {
-                padding: 40px 25px;
+            section {
+                padding: 70px 0;
             }
-            
-            h1 {
-                font-size: 2em;
+
+            .hero {
+                min-height: 650px;
             }
-            
-            .description p {
-                font-size: 1em;
+
+            .hero h1 {
+                font-size: 2.7rem;
+            }
+
+            .stats-grid,
+            .services-grid,
+            .process-grid,
+            .solution-grid,
+            .testimonial-grid,
+            .pricing-grid,
+            .footer-grid,
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .stat {
+                border-right: none;
+                border-bottom: 1px solid #eee;
+            }
+
+            .stat:last-child {
+                border-bottom: none;
+            }
+
+            .section-title h2,
+            .cta h2 {
+                font-size: 2rem;
+            }
+
+            .price-card.featured {
+                transform: none;
+            }
+
+            .about-card {
+                padding: 30px;
             }
         }
     </style>
 </head>
+
 <body>
-    <!-- AS Naven -->
-    <div class="container">
-        <div class="header">
-            <h1>Premium Sales Solutions</h1>
-            <p class="tagline">Elevate Your Business Growth</p>
-            <div class="divider"></div>
+
+    <!-- ================= NAVIGATION ================= -->
+
+    <header>
+        <div class="container navbar">
+            <a href="#home" class="logo">Sales<span>Pro</span></a>
+
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#process">Process</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#contact" class="nav-btn">Contact Us</a>
+            </nav>
         </div>
-        
-        <div class="description">
-            <p>
-                Welcome to our cutting-edge sales business platform, designed to transform the way you engage with customers and drive revenue growth. We specialize in providing comprehensive sales solutions that empower businesses of all sizes to achieve their commercial objectives with confidence and efficiency.
-            </p>
-            <p>
-                Our innovative approach combines proven sales strategies, advanced analytics, and personalized customer engagement to maximize conversion rates and build lasting business relationships. Whether you're looking to expand your market reach, enhance your sales team's performance, or optimize your sales pipeline, we deliver tailored solutions that align with your unique business needs and goals.
-            </p>
-            
-            <div class="features">
-                <h3>Our Solutions</h3>
-                <ul class="feature-list">
-                    <li>Strategic Sales Consulting & Planning</li>
-                    
-                    <li>Sales Team Training & Development</li>
-                    <li>Revenue Optimization Strategies</li>
-                    <li>Data-Driven Sales Analytics</li>
-                    <li>Lead Generation & Nurturing</li>
-                    <li>Post-Sales Support & Customer Success</li>
-                </ul>
+    </header>
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+
+                <span class="badge">SMARTER SALES • STRONGER BUSINESS</span>
+
+                <h1>
+                    Turn More Leads Into
+                    <span>Long-Term Customers.</span>
+                </h1>
+
+                <p>
+                    We help ambitious businesses build powerful sales systems,
+                    improve team performance, generate qualified leads and create
+                    predictable revenue through modern sales strategies.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Start Growing</a>
+                    <a href="#services" class="btn btn-outline">Explore Services</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= STATS ================= -->
+
+    <div class="stats">
+        <div class="container">
+            <div class="stats-grid">
+
+                <div class="stat">
+                    <h2>500+</h2>
+                    <p>Businesses Supported</p>
+                </div>
+
+                <div class="stat">
+                    <h2>92%</h2>
+                    <p>Client Satisfaction</p>
+                </div>
+
+                <div class="stat">
+                    <h2>3.5X</h2>
+                    <p>Average ROI Growth</p>
+                </div>
+
+                <div class="stat">
+                    <h2>10+</h2>
+                    <p>Years Experience</p>
+                </div>
+
             </div>
         </div>
     </div>
-    <!-- DO It -->
+
+    <!-- ================= ABOUT ================= -->
+
+    <section class="about" id="about">
+        <div class="container">
+
+            <div class="section-title">
+                <div class="small-title">Who We Are</div>
+                <h2>Your Growth Is Our Business</h2>
+                <p>
+                    A modern sales partner focused on sustainable revenue,
+                    customer relationships and measurable business growth.
+                </p>
+            </div>
+
+            <div class="about-grid">
+
+                <div class="about-content">
+
+                    <h2>Building Sales Systems That Actually Work</h2>
+
+                    <p>
+                        SalesPro is a results-driven sales consultancy designed
+                        to help businesses overcome common sales challenges and
+                        unlock new revenue opportunities.
+                    </p>
+
+                    <p>
+                        From lead generation and sales strategy to customer
+                        retention and performance analytics, our team works
+                        alongside you to create a complete sales ecosystem.
+                    </p>
+
+                    <ul class="about-list">
+                        <li>Customized sales strategies</li>
+                        <li>Experienced sales consultants</li>
+                        <li>Data-driven decision making</li>
+                        <li>Transparent performance reporting</li>
+                        <li>Long-term customer success</li>
+                    </ul>
+
+                </div>
+
+                <div class="about-card">
+                    <h3>Why Choose SalesPro?</h3>
+
+                    <p>
+                        We don't believe in one-size-fits-all sales solutions.
+                        Every business has different customers, products,
+                        markets and goals. That's why we create customized
+                        strategies based on your actual business environment.
+                    </p>
+
+                    <br>
+
+                    <p>
+                        Our goal is simple: help your team sell more efficiently,
+                        serve customers better and create predictable revenue.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SERVICES ================= -->
+
+    <section class="services" id="services">
+        <div class="container">
+
+            <div class="section-title">
+                <div class="small-title">Our Services</div>
+                <h2>Complete Sales Solutions</h2>
+                <p>
+                    Everything your business needs to build a high-performing
+                    sales operation.
+                </p>
+            </div>
+
+            <div class="services-grid">
+
+                <div class="service-card">
+                    <div class="service-icon">📈</div>
+                    <h3>Sales Strategy</h3>
+                    <p>
+                        Develop a clear sales roadmap with defined targets,
+                        market positioning, customer segments and growth goals.
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🎯</div>
+                    <h3>Lead Generation</h3>
+                    <p>
+                        Identify and attract qualified prospects using
+                        targeted acquisition and lead nurturing strategies.
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">👥</div>
+                    <h3>Sales Training</h3>
+                    <p>
+                        Improve your team's communication, negotiation,
+                        prospecting, objection handling and closing skills.
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+                    <h3>Sales Analytics</h3>
+                    <p>
+                        Transform sales data into actionable insights and
+                        understand exactly where revenue opportunities exist.
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">💰</div>
+                    <h3>Revenue Optimization</h3>
+                    <p>
+                        Improve pricing, conversion rates, sales processes and
+                        customer value to maximize revenue potential.
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🤝</div>
+                    <h3>Customer Success</h3>
+                    <p>
+                        Build stronger post-sale relationships that increase
+                        retention, referrals and customer lifetime value.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= PROCESS ================= -->
+
+    <section class="process" id="process">
+        <div class="container">
+
+            <div class="section-title">
+                <div class="small-title">Our Process</div>
+                <h2>How We Grow Your Sales</h2>
+                <p>
+                    A simple, transparent and measurable approach to improving
+                    your sales performance.
+                </p>
+            </div>
+
+            <div class="process-grid">
+
+                <div class="process-card">
+                    <div class="process-number">01</div>
+                    <h3>Discover</h3>
+                    <p>
+                        We understand your business, customers, competitors
+                        and current sales challenges.
+                    </p>
+                </div>
+
+                <div class="process-card">
+                    <div class="process-number">02</div>
+                    <h3>Plan</h3>
+                    <p>
+                        We create a customized sales strategy based on your
+                        business objectives.
+                    </p>
+                </div>
+
+                <div class="process-card">
+                    <div class="process-number">03</div>
+                    <h3>Execute</h3>
+                    <p>
+                        Our team helps implement practical sales systems,
+                        processes and campaigns.
+                    </p>
+                </div>
+
+                <div class="process-card">
+                    <div class="process-number">04</div>
+                    <h3>Optimize</h3>
+                    <p>
+                        We continuously measure results and improve your
+                        sales process for stronger performance.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SOLUTIONS ================= -->
+
+    <section class="solutions">
+        <div class="container">
+
+            <div class="section-title">
+                <div class="small-title">Business Solutions</div>
+                <h2>Designed Around Your Goals</h2>
+                <p>
+                    Whether you are launching, expanding or optimizing,
+                    our sales solutions adapt to your business stage.
+                </p>
+            </div>
+
+            <div class="solution-grid">
+
+                <div class="solution-box">
+                    <h3>For Startups</h3>
+                    <p>
+                        Build your first repeatable sales process, identify
+                        ideal customers and establish a strong foundation
+                        for scalable growth.
+                    </p>
+                </div>
+
+                <div class="solution-box">
+                    <h3>For Growing Businesses</h3>
+                    <p>
+                        Increase qualified leads, improve conversion rates
+                        and build a stronger sales team as your company grows.
+                    </p>
+                </div>
+
+                <div class="solution-box">
+                    <h3>For Established Companies</h3>
+                    <p>
+                        Optimize existing sales operations, discover new
+                        revenue channels and improve customer retention.
+                    </p>
+                </div>
+
+                <div class="solution-box">
+                    <h3>For Sales Teams</h3>
+                    <p>
+                        Improve productivity through coaching, performance
+                        measurement, better sales tools and proven techniques.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= TESTIMONIALS ================= -->
+
+    <section class="testimonials">
+        <div class="container">
+
+            <div class="section-title">
+                <div class="small-title">Client Stories</div>
+                <h2>What Our Clients Say</h2>
+                <p>
+                    Businesses trust our approach because we focus on
+                    measurable outcomes and lasting partnerships.
+                </p>
+            </div>
+
+            <div class="testimonial-grid">
+
+                <div class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p>
+                        "SalesPro completely changed the way our team
+                        approaches prospects. Our pipeline is more organized
+                        and our sales conversations are much stronger."
+                    </p>
+                    <div class="client">
+                        Rahul Sharma
+                        <span>Business Owner</span>
+                    </div>
+                </div>
+
+                <div class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p>
+                        "The strategy was practical, clear and easy to
+                        implement. Within a few months, we had a much more
+                        predictable sales process."
+                    </p>
+                    <div class="client">
+                        Priya Mehta
+                        <span>Marketing Director</span>
+                    </div>
+                </div>
+
+                <div class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p>
+                        "Their training helped our sales representatives
+                        become more confident and consistent. The results
+                        have been excellent."
+                    </p>
+                    <div class="client">
+                        Arjun Kumar
+                        <span>Sales Manager</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= PRICING ================= -->
+
+    <section class="pricing" id="pricing">
+        <div class="container">
+
+            <div class="section-title">
+                <div class="small-title">Flexible Plans</div>
+                <h2>Choose Your Growth Plan</h2>
+                <p>
+                    Select the level of support that fits your current
+                    business needs.
+                </p>
+            </div>
+
+            <div class="pricing-grid">
+
+                <div class="price-card">
+                    <h3>Starter</h3>
+                    <div class="price">₹9,999</div>
+
+                    <p>For businesses building their sales foundation.</p>
+
+                    <ul>
+                        <li>Sales strategy consultation</li>
+                        <li>Basic sales audit</li>
+                        <li>Lead generation guidance</li>
+                        <li>Monthly performance review</li>
+                    </ul>
+
+                    <a href="#contact" class="btn">Get Started</a>
+                </div>
+
+                <div class="price-card featured">
+                    <h3>Growth</h3>
+                    <div class="price">₹24,999</div>
+
+                    <p>For businesses ready to accelerate revenue.</p>
+
+                    <ul>
+                        <li>Complete sales strategy</li>
+                        <li>Lead generation system</li>
+                        <li>Sales team training</li>
+                        <li>Sales analytics</li>
+                        <li>Weekly performance reviews</li>
+                    </ul>
+
+                    <a href="#contact" class="btn btn-primary">Choose Growth</a>
+                </div>
+
+                <div class="price-card">
+                    <h3>Enterprise</h3>
+                    <div class="price">Custom</div>
+
+                    <p>For organizations requiring advanced support.</p>
+
+                    <ul>
+                        <li>Advanced sales consulting</li>
+                        <li>Dedicated strategy support</li>
+                        <li>Custom analytics</li>
+                        <li>Team performance programs</li>
+                        <li>Priority customer success</li>
+                    </ul>
+
+                    <a href="#contact" class="btn">Contact Sales</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= CTA ================= -->
+
+    <section class="cta">
+        <div class="container">
+
+            <h2>Ready to Grow Your Sales?</h2>
+
+            <p>
+                Let's build a smarter sales strategy that turns opportunities
+                into revenue and customers into long-term relationships.
+            </p>
+
+            <a href="#contact" class="btn btn-primary">
+                Schedule a Consultation
+            </a>
+
+        </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+
+    <section class="contact" id="contact">
+        <div class="container">
+
+            <div class="section-title">
+                <div class="small-title">Get In Touch</div>
+                <h2>Let's Talk About Your Business</h2>
+                <p>
+                    Tell us about your goals and we'll help identify the
+                    right sales opportunities for your business.
+                </p>
+            </div>
+
+            <div class="contact-grid">
+
+                <div class="contact-info">
+
+                    <h2>Start a Conversation</h2>
+
+                    <p>
+                        Have questions about our sales consulting, training
+                        or lead generation services? Our team is ready to help.
+                    </p>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <strong>Office</strong>
+                            <span>Business Growth Center, India</span>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div>
+                            <strong>Phone</strong>
+                            <span>+91 98765 43210</span>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">✉</div>
+                        <div>
+                            <strong>Email</strong>
+                            <span>hello@salespro.example</span>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">⏰</div>
+                        <div>
+                            <strong>Business Hours</strong>
+                            <span>Monday - Saturday, 9:00 AM - 6:00 PM</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <form action="#" method="post">
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                placeholder="Your name"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="you@example.com"
+                                required
+                            >
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                placeholder="+91 98765 43210"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="service">Interested In</label>
+
+                            <select id="service" name="service">
+                                <option value="">Select a service</option>
+                                <option>Sales Strategy</option>
+                                <option>Lead Generation</option>
+                                <option>Sales Training</option>
+                                <option>Revenue Optimization</option>
+                                <option>Sales Analytics</option>
+                                <option>Customer Success</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Tell Us About Your Business</label>
+
+                        <textarea
+                            id="message"
+                            name="message"
+                            placeholder="Tell us about your sales goals and challenges..."
+                        ></textarea>
+                    </div>
+
+                    <button type="submit" class="btn">
+                        Send Inquiry
+                    </button>
+
+                </form>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FAQ ================= -->
+
+    <section class="faq">
+        <div class="container">
+
+            <div class="section-title">
+                <div class="small-title">FAQ</div>
+                <h2>Frequently Asked Questions</h2>
+                <p>
+                    Quick answers to some common questions about our sales
+                    services.
+                </p>
+            </div>
+
+            <div class="faq-container">
+
+                <details>
+                    <summary>What type of businesses do you work with?</summary>
+                    <p>
+                        We work with startups, small businesses, growing
+                        companies and established organizations across
+                        different industries.
+                    </p>
+                </details>
+
+                <details>
+                    <summary>Can you help build a sales team?</summary>
+                    <p>
+                        Yes. We can support recruitment strategy, onboarding,
+                        sales training, performance management and sales
+                        process development.
+                    </p>
+                </details>
+
+                <details>
+                    <summary>How quickly can we expect results?</summary>
+                    <p>
+                        Results depend on your industry, sales cycle, market
+                        and starting position. We focus on building measurable
+                        improvements while creating sustainable systems.
+                    </p>
+                </details>
+
+                <details>
+                    <summary>Do you provide customized strategies?</summary>
+                    <p>
+                        Absolutely. Every engagement begins with an assessment
+                        of your business, customers, sales process and goals.
+                    </p>
+                </details>
+
+                <details>
+                    <summary>Can we start with a consultation?</summary>
+                    <p>
+                        Yes. Contact our team to discuss your current sales
+                        challenges and determine which solution best fits
+                        your business.
+                    </p>
+                </details>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="container">
+
+            <div class="footer-grid">
+
+                <div class="footer-brand">
+                    <h2>SalesPro</h2>
+
+                    <p>
+                        Helping businesses create stronger sales systems,
+                        better customer relationships and predictable revenue.
+                    </p>
+                </div>
+
+                <div>
+                    <h3>Company</h3>
+
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#process">Our Process</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3>Solutions</h3>
+
+                    <ul>
+                        <li><a href="#services">Sales Strategy</a></li>
+                        <li><a href="#services">Lead Generation</a></li>
+                        <li><a href="#services">Sales Training</a></li>
+                        <li><a href="#services">Analytics</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3>Support</h3>
+
+                    <ul>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#contact">Help Center</a></li>
+                        <li><a href="#contact">Consultation</a></li>
+                        <li><a href="#contact">Customer Support</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="copyright">
+                © 2026 SalesPro. All Rights Reserved.
+            </div>
+
+        </div>
+
+    </footer>
+
 </body>
 </html>
