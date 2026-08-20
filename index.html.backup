@@ -756,7 +756,7 @@
          FLOATING JIRA BUTTON
     ========================================= -->
 
-    <button
+    <!-- <button
         class="jira-floating-btn"
         id="jiraFloatingButton"
         onclick="toggleJiraPopup()"
@@ -764,7 +764,7 @@
 
         🎫
 
-    </button>
+    </button> -->
 
 
 
@@ -887,14 +887,14 @@
 
 
                 <!-- CREATE -->
-<!-- 
+
                 <button
                     class="jira-create-btn"
                     onclick="createJiraTicket()">
 
                     Create Jira Ticket
 
-                </button> -->
+                </button>
 
 
 
