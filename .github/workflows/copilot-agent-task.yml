@@ -36,6 +36,7 @@ jobs:
     name: Execute Gemini AI Code Agent
     needs: slack-notification
     runs-on: ubuntu-latest
+    environment: approval-gate
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
